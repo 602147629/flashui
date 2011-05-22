@@ -56,5 +56,7 @@ public:
 
 	BOOL					Update(float dt);
 	BOOL					Render(float x,float y);
+
+	LRESULT					OnWinMsgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };//class FlashSprite
 

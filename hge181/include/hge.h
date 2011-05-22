@@ -174,6 +174,12 @@ typedef bool (*hgeCallback)();
 
 
 /*
+** Callback windows msgproc
+*/
+typedef LRESULT (*hgeWinMsgProc)(UINT message, WPARAM wParam, LPARAM lParam);
+
+
+/*
 ** HGE_FPS system state special constants
 */
 #define HGEFPS_UNLIMITED	0
@@ -282,6 +288,7 @@ public:
 	virtual	void		CALL	System_Log(const char *format, ...) = 0;
 	virtual bool		CALL	System_Launch(const char *url) = 0;
 	virtual void		CALL	System_Snapshot(const char *filename=0) = 0;
+	virtual void		CALL	System_SetWinMsgFunc(hgeWinMsgProc func) = 0;
 
 private:
 	virtual void		CALL	System_SetStateBool  (hgeBoolState   state, bool        value) = 0;

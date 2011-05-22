@@ -18,7 +18,7 @@ bool FrameFunc()
 bool RenderFunc()
 {
 	hge->Gfx_BeginScene();
-	hge->Gfx_Clear(0xff707070);
+	hge->Gfx_Clear(0xFF707070);
 
 	// 绘制flash到指定坐标
 	pFlashSprite->Render(10,10);
@@ -28,6 +28,12 @@ bool RenderFunc()
 	Sleep(1);
 
 	return false;
+}
+
+LRESULT myWinMsgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	pFlashSprite->OnWinMsgProc(message, wParam, lParam);
+	return 0;
 }
 
 
@@ -47,14 +53,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	hge->System_SetState(HGE_HIDEMOUSE, false);
 	hge->System_SetState(HGE_WINDOWED, true);
 	hge->System_SetState(HGE_FPS,60);
+	hge->System_SetWinMsgFunc(myWinMsgProc);
 
 	if(hge->System_Initiate())
 	{
 		// 创建flash精灵
 		pFlashSprite = new FlashSprite;
 		// 加载flash文件
-		//pFlashSprite->StartFlash("startup.swf",720,576);
-		pFlashSprite->StartFlash("FLASH_001.swf",720,576);
+		pFlashSprite->StartFlash("Tab.swf",800,600);
+		//pFlashSprite->StartFlash("FLASH_001.swf",720,576);
 
 		hge->System_Start();
 

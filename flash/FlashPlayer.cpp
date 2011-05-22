@@ -527,6 +527,7 @@ FlashPlayer::FlashPlayer()
 	m_pOleObject->SetClientSite(aClientSite);	
 
 	m_pOleObject->QueryInterface(__uuidof(IShockwaveFlash), (LPVOID*) &m_pFlashInterface);
+	//_bstr_t aTrans = "Transparent";
 	_bstr_t aTrans = "Transparent";
 	m_pFlashInterface->put_WMode(aTrans);
 

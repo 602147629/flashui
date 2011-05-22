@@ -68,6 +68,7 @@ BOOL FlashSprite::StartFlash(char* lpsFlash,LONG nWidth,LONG nHeight)
 
 	return TRUE;
 }
+
 void FlashSprite::SetQuality(BYTE byQuality)
 {
 	if (m_pFlashPlayer)
@@ -87,64 +88,75 @@ BOOL FlashSprite::IsPlaying()
 		return m_pFlashPlayer->IsPlaying() == true;
 	return FALSE;
 }
+
 void FlashSprite::Pause()
 {
 	if (m_pFlashPlayer)
 		m_pFlashPlayer->Pause();
 }
+
 void FlashSprite::Unpause()
 {
 	if (m_pFlashPlayer)
 		m_pFlashPlayer->Unpause();
 
 }
+
 void FlashSprite::Back()
 {
 	if (m_pFlashPlayer)
 		m_pFlashPlayer->Back();
 
 }
+
 void FlashSprite::Rewind()
 {
 	if (m_pFlashPlayer)
 		m_pFlashPlayer->Rewind();
 
 }
+
 void FlashSprite::Forward()
 {
 	if (m_pFlashPlayer)
 		m_pFlashPlayer->Forward();
 
 }
+
 void FlashSprite::GotoFrame(int nFrame)
 {
 	if (m_pFlashPlayer)
 		m_pFlashPlayer->GotoFrame(nFrame);
 
 }
+
 int FlashSprite::GetCurrentFrame()
 {
 	if (m_pFlashPlayer)
 		return m_pFlashPlayer->GetCurrentFrame();
 	return -1;
 }
+
 int FlashSprite::GetTotalFrames()
 {
 	if (m_pFlashPlayer)
 		return m_pFlashPlayer->GetTotalFrames();
 	return -1;
 }
+
 BOOL FlashSprite::GetLoopPlay()
 {
 	if (m_pFlashPlayer)
 		return m_pFlashPlayer->GetLoopPlay();
 	return FALSE;
 }
+
 void FlashSprite::SetLoopPlay(BOOL bLoop)
 {
 	if (m_pFlashPlayer)
 		m_pFlashPlayer->SetLoopPlay(bLoop);
 }
+
 BOOL FlashSprite::Update(float dt)
 {
 	if (m_pFlashPlayer)
@@ -169,6 +181,7 @@ BOOL FlashSprite::Update(float dt)
 	}
 	return FALSE;
 }
+
 BOOL FlashSprite::Render(float x,float y)
 {
 	register float tempx1, tempy1, tempx2, tempy2;
@@ -186,3 +199,45 @@ BOOL FlashSprite::Render(float x,float y)
 	m_pHGE->Gfx_RenderQuad(&m_FlashQuad);
 	return TRUE;
 }
+
+LRESULT FlashSprite::OnWinMsgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch(message)
+	{
+	case WM_MOUSEMOVE:
+		{
+			LONG x = LOWORD(lParam);
+			LONG y = HIWORD(lParam);
+			FLOAT x2, y2;
+			m_pHGE->Input_GetMousePos(&x2, &y2);
+			m_pFlashPlayer->MouseMove((int)x2, (int)y2);
+		}
+		break;
+	case WM_LBUTTONDOWN:
+		{
+			LONG x = LOWORD(lParam);
+			LONG y = HIWORD(lParam);
+			FLOAT x2, y2;
+			m_pHGE->Input_GetMousePos(&x2, &y2);
+			m_pFlashPlayer->MouseLButtonDown((int)x2, (int)y2);
+		}
+		break;
+	case WM_LBUTTONUP:
+		{
+			LONG x = LOWORD(lParam);
+			LONG y = HIWORD(lParam);
+			FLOAT x2, y2;
+			m_pHGE->Input_GetMousePos(&x2, &y2);
+			m_pFlashPlayer->MouseLButtonUp((int)x2, (int)y2);
+		}
+		break;
+	default:
+	    break;
+	}
+
+	return 0;
+}
+
+
+
+
